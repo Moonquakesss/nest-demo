@@ -19,4 +19,10 @@ export class GirlController {
     const id: number = parseInt(req.query.id);
     return this.girlService.getGirlById(id);
   }
+  @Get('/thirdImgGet')
+  getThirdImg() {
+    const res = this.girlService.getBingImg('1');
+    console.log('bing img = ', res);
+    return res;
+  }
 }

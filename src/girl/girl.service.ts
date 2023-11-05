@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class GirlService {
+  // 初始化 HttpService
+  constructor(private readonly httpService: HttpService) {}
   getGirls(): any {
     return {
       code: '0',
@@ -29,5 +33,16 @@ export class GirlService {
         break;
     }
     return retJson;
+  }
+  getBingImg(n = '1') {
+    const res: any = this.httpService
+      .get('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=' + n)
+      .pipe(map((res) => res.data))
+      .pipe(
+        catchError(() => {
+          throw new ForbiddenException('API not available');
+        }),
+      );
+    return res;
   }
 }
