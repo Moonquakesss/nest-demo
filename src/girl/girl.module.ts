@@ -4,6 +4,6 @@ import { GirlService } from './girl.service';
 
 @Module({
   controllers: [GirlController],
-  providers: [GirlService]
+  providers: [GirlService],
 })
 export class GirlModule {}

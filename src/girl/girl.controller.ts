@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Request } from '@nestjs/common';
 import { GirlService } from './girl.service';
 
 @Controller('girl')
@@ -8,5 +8,15 @@ export class GirlController {
   @Get()
   getGirls(): any {
     return this.girlService.getGirls();
+  }
+  @Post('/add')
+  addGirls(@Request() req): any {
+    console.log(req.body);
+    return this.girlService.addGirls();
+  }
+  @Get('/getGirlById')
+  getGirlById(@Request() req): any {
+    const id: number = parseInt(req.query.id);
+    return this.girlService.getGirlById(id);
   }
 }
